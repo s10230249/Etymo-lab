@@ -1,13 +1,18 @@
 import { createClient } from '@supabase/supabase-js'
 
-// SSR 與開發環境雙支援
+// 注意：這兩層 fallback 是必要的
 const supabaseUrl =
-	process.env.SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL
+	typeof process !== 'undefined' && process.env.SUPABASE_URL
+		? process.env.SUPABASE_URL
+		: import.meta.env.VITE_SUPABASE_URL;
+
 const supabaseAnonKey =
-	process.env.SUPABASE_ANON_KEY || import.meta.env.VITE_SUPABASE_ANON_KEY
+	typeof process !== 'undefined' && process.env.SUPABASE_ANON_KEY
+		? process.env.SUPABASE_ANON_KEY
+		: import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseAnonKey) {
-	throw new Error('❌ Supabase 環境變數未設定')
+	throw new Error('❌ Supabase 環境變數尚未設定');
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
