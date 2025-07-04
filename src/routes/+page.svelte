@@ -32,11 +32,16 @@
       rootDetail = data.data[0];
     }
   }
+
+  function playAudio(word: string) {
+    const audio = new Audio(`/mp3/${word}.mp3`);
+    audio.play();
+  }
 </script>
 
 <div class="flex flex-col min-h-screen bg-gray-50">
   <main class="flex-grow flex flex-col items-center justify-center">
-    <div class="w-full max-w-2xl mx-auto px-4 py-8">
+    <div class="w-8/12 mx-auto px-4 py-8 bg-green-100">
       <h1 class="text-4xl font-bold mb-8 text-center">英語字根學習系統</h1>
       <div class="bg-white p-8 rounded-lg shadow-md">
         <h2 class="text-2xl font-semibold mb-4">單字搜尋</h2>
@@ -65,15 +70,23 @@
               <thead>
                 <tr>
                   <th class="py-2 px-4 border-b">詞彙</th>
+                  <th class="py-2 px-4 border-b">發音</th>
                   <th class="py-2 px-4 border-b">字根形式</th>
                   <th class="py-2 px-4 border-b">中文解釋</th>
                   <th class="py-2 px-4 border-b">功能類型</th>
-                  <th class="py-2 px-4 border-b">其他說明</th>
+                  <th class="py-2 px-4 border-b">其他(字根字首)說明</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td class="py-2 px-4 border-b">{result.word}</td>
+                  <td class="py-2 px-4 border-b">
+                    <button on:click={() => playAudio(result.word)} class="hover:text-blue-500" aria-label="播放發音">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="inline w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l-2 2H5a2 2 0 00-2 2v4a2 2 0 002 2h2l2 2zm7-5a3 3 0 000-6m0 6a5 5 0 000-10" />
+                      </svg>
+                    </button>
+                  </td>
                   <td class="py-2 px-4 border-b">
                     <button
                       type="button"
